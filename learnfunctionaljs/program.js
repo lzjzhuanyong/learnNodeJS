@@ -227,6 +227,10 @@ module.exports = function curryN(fn, n) {
 //那么照理来说Function.call(Array.prototype.slice,arg1,arg2,...)应该等价于Function.call.bind(Array.prototype.slice)(arg1,arg2,...)才对啊
 //但编译器好像不这么想，感觉有些不能理解，我觉得应该是Functtion的执行方式可能并不是我所理解的那样。看来这里还需要更加深入的去看看
 //官方给出的解释是Function.call会执行this，然后bind把this值绑到了一个对象上（这里就是Array.prototype.slice）。所以说我就不理解了。
-//留待之后再思考吧。
+//留待之后再思考吧。2019.5.10
+//
+//补充，我好像理解了，我前面把bind的第一个参数也当做了要预添加的参数了，其实bind的第一个参数是作为处理用，而不是预添加用的，预添加的是第二个参数开始。
+//这样的话不使用bind，则无法让Array.prototype.slice与Function组合成为新的函数。
+//具体则涉及到bind第一个参数的具体逻辑，可以参考mdn。ps：其实我也还没完全看懂。
 module.exports = Function.call.bind(Array.prototype.slice);
 */
